@@ -3,7 +3,7 @@
     <i class="fas fa-plus-circle px-1"></i>
     Add Asset
   </h2>
-  <form (ngSubmit)="hello()"
+  <form (ngSubmit)="onSubmit()"
     class="d-flex align-items-center flex-column">
     <div class="form-group">
       <label for="serial_number_textfield">
@@ -24,9 +24,9 @@
         class="mx-2"
         [(ngModel)]="category"
         name="category_select">
-        <option *ngFor="let entry of getAssetCategories()"
-          [value]="entry[0]">
-          {{entry[1]}}
+        <option *ngFor="let category of vs.AssetCategories"
+          [ngValue]="category">
+          {{category}}
         </option>
       </select>
     </div>
@@ -38,9 +38,9 @@
         class="mx-2"
         [(ngModel)]="status"
         name="status_select">
-        <option *ngFor="let entry of getAssetStatuses()"
-          [value]="entry[0]">
-          {{entry[1]}}
+        <option *ngFor="let status of vs.AssetStatuses"
+          [ngValue]="status">
+          {{status}}
         </option>
       </select>
     </div>

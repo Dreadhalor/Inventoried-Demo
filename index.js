@@ -25,9 +25,11 @@ app.use(cors());
 //body-parse middleware
 app.use(bodyParser.json());
 
-//initialize route
-const hello = require('./routes/hello');
-app.use('/hello', hello);
+//initialize routes
+const server_vars = require('./routes/server_vars');
+app.use('/server_vars', server_vars);
+const assets = require('./routes/assets');
+app.use('/assets', assets);
 
 app.get('/', (req, res, next) => {
   res.send('hello world');

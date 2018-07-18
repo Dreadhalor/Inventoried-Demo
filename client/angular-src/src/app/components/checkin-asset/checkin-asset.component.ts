@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-checkin-asset',
+  selector: 'checkin-asset',
   templateUrl: './checkin-asset.component.html',
   styleUrls: ['./checkin-asset.component.scss']
 })

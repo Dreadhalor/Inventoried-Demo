@@ -1,42 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import { AssetService } from '../../services/asset.service';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Asset } from '../../services/asset';
+import { VariableService } from '../../services/variable.service';
 
 @Component({
-  selector: 'app-add-asset',
+  selector: 'add-asset',
   templateUrl: './add-asset.component.html',
   styleUrls: ['./add-asset.component.scss']
 })
 export class AddAssetComponent implements OnInit {
 
-  serial_number;
-  category;
-  status;
+  serial_number: string;
+  category: string = this.vs.AssetCategories[0];
+  status: string = this.vs.AssetStatuses[0];
 
-  constructor() { }
+  constructor(
+    private assets: AssetService,
+    private us: UtilitiesService,
+    private vs: VariableService
+  ) { }
 
   ngOnInit() {
   }
 
-  getAssetStatuses(){
-    return Object.entries(AssetStatuses);
-  }
-  getAssetCategories(){
-    return Object.entries(AssetCategories);
+  onSubmit(){
+    let asset = new Asset(
+      undefined,
+      this.serial_number,
+      this.category,
+      this.status
+    );
+    this.assets.addAsset(asset);
   }
 
-  hello(){
-    console.log(`${this.serial_number} ${this.category} ${this.status}`);
-  }
-
-}
-
-enum AssetStatuses {
-  New = 'New',
-  Assigned = 'Assigned',
-  Returned = 'Returned',
-  Retired = 'Retired'
-}
-enum AssetCategories {
-  Desktop = 'Desktop',
-  Monitor = 'Monitor',
-  Printer = 'Printer',
 }

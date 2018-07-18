@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Globals } from './globals';
+import { VariableService } from './services/variable.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,10 @@ import { Globals } from './globals';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
   title = Globals.title;
+
+  constructor(
+    private vs: VariableService
+  ){}
 }

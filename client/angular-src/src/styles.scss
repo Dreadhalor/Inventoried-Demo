@@ -18,3 +18,10 @@ html, body {
 .flex-1 {
   flex: 1;
 }
+.y-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.overflow-hidden {
+  overflow: hidden;
+}

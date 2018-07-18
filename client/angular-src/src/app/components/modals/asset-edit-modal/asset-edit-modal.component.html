@@ -1,0 +1,61 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">
+        Edit Item: {{asset.serial_number}}
+      </h4>
+      <button type="button"
+        class="close"
+        (click)="d('Cross click')">
+        <span>&times;</span>
+      </button>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="serial_number_textfield">
+            Serial Number
+          </label>
+          <input id="serial_number_textfield"
+            type="text"
+            class="form-control"
+            placeholder="Serial Number"
+            [(ngModel)]="values.serial_number"
+            name="serial_number_textfield">
+        </div>
+        <div class="form-group">
+          <label for="category_select">
+            Category
+          </label>
+          <select id="category_select"
+            class="mx-2"
+            [(ngModel)]="values.category"
+            name="category_select">
+            <option *ngFor="let category of vs.AssetCategories"
+              [ngValue]="category">
+              {{category}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="status_select">
+            Status
+          </label>
+          <select id="status_select"
+            class="mx-2"
+            [(ngModel)]="values.status"
+            name="status_select">
+            <option *ngFor="let status of vs.AssetStatuses"
+              [ngValue]="status">
+              {{status}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit"
+          class="btn btn-outline-dark">
+          Save
+        </button>
+      </div>
+    </form>
+  </ng-template>

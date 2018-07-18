@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-retire-asset',
+  selector: 'retire-asset',
   templateUrl: './retire-asset.component.html',
   styleUrls: ['./retire-asset.component.scss']
 })

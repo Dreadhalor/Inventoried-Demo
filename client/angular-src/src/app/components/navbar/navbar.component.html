@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <a class="navbar-brand"
+    href="#">
+    Inventoried
+  </a>
+  <div class="navbar-nav">
+    <a class="nav-item nav-link"
+      routerLink="/add-asset"
+      routerLinkActive="active">
+      Add
+    </a>
+    <a class="nav-item nav-link"
+      routerLink="/checkout-asset"
+      routerLinkActive="active">
+      Checkout
+    </a>
+    <a class="nav-item nav-link"
+      routerLink="/checkin-asset"
+      routerLinkActive="active">
+      Checkin
+    </a>
+    <a class="nav-item nav-link"
+      routerLink="/retire-asset"
+      routerLinkActive="active">
+      Retire
+    </a>
+    <a class="nav-item nav-link"
+      routerLink="/browse-assets"
+      routerLinkActive="active">
+      Browse
+    </a>
+  </div>
+  <div class="input-group input-group-sm search-bar ml-auto">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        Search
+      </div>
+    </div>
+    <select class="form-control form-control-sm">
+      <option>
+        Serial Number
+      </option>
+      <option>
+        Category
+      </option>
+      <option>
+        Status
+      </option>
+    </select>
+    <input type="text"
+      class="form-control">
+  </div>
+</nav>
