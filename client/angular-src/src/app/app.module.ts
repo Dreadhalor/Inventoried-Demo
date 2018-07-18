@@ -16,14 +16,13 @@ import { BrowseAssetsComponent } from './components/browse-assets/browse-assets.
 import { AssetService } from './services/asset.service';
 import { UtilitiesService } from './services/utilities.service';
 import { AssetEditModalComponent } from './components/modals/asset-edit-modal/asset-edit-modal.component';
-import { NgbModalStack } from '../../node_modules/@ng-bootstrap/ng-bootstrap/modal/modal-stack';
+import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
+import { SettingsViewComponent } from './components/settings-view/settings-view.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainMenuComponent },
   { path: 'add-asset', component: AddAssetComponent },
-  { path: 'checkout-asset', component: CheckoutAssetComponent },
-  { path: 'checkin-asset', component: CheckinAssetComponent },
-  { path: 'retire-asset', component: RetireAssetComponent },
+  { path: 'settings', component: SettingsViewComponent },
   { path: 'browse-assets', component: BrowseAssetsComponent }
 ];
 
@@ -37,20 +36,19 @@ const appRoutes: Routes = [
     RetireAssetComponent,
     NavbarComponent,
     BrowseAssetsComponent,
-    AssetEditModalComponent
+    AssetEditModalComponent,
+    SettingsViewComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule.forRoot()
   ],
   providers: [
     AssetService,
-    UtilitiesService,
-    NgbModal,
-    NgbModalStack
+    UtilitiesService
   ],
   bootstrap: [AppComponent]
 })

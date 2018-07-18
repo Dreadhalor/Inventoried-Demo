@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Asset = require('../models/asset');
 
-router.post('/add-asset', (req, res) => {
+router.post('/add_asset', (req, res) => {
   let uuid = req.body.uuid;
   let serial_number = (req.body.serial_number) ? req.body.serial_number : '';
   let category = (req.body.category) ? req.body.category : 0;
@@ -27,7 +27,7 @@ router.post('/add-asset', (req, res) => {
   }
 });
 
-router.get('/pull-assets', (req, res) => {
+router.get('/pull_assets', (req, res) => {
   Asset.pullAllAssets((err,suc) => {
     if (err){
       console.log(err);

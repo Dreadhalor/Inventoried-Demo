@@ -9,7 +9,7 @@ export class UtilitiesService {
 
   constructor() { }
 
-  uuid(){
+  static uuid(){
     return uuid();
   }
   

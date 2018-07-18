@@ -1,0 +1,8 @@
+$cancel-color: red;
+
+.cancel-add-btn {
+  color: $cancel-color;
+  &:hover {
+    color: darken($cancel-color,20%);
+  }
+}

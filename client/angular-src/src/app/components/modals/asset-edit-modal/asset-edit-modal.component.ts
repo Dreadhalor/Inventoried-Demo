@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { VariableService } from '../../../services/variable.service';
-import { Asset } from '../../../services/asset';
+import { Asset } from '../../../classes/asset';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'asset-edit-modal',
@@ -23,7 +23,7 @@ export class AssetEditModalComponent implements OnInit {
   options = { centered: true };
 
   constructor(
-    private vs: VariableService,
+    private ss: SettingsService,
     private ms: NgbModal
   ) { }
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetService } from '../../services/asset.service';
 import { UtilitiesService } from '../../services/utilities.service';
-import { Asset } from '../../services/asset';
-import { VariableService } from '../../services/variable.service';
+import { Asset } from '../../classes/asset';
+import { SettingsService } from '../../services/settings.service';
+import { AssetCategory } from '../../classes/asset-category';
 
 @Component({
   selector: 'add-asset',
@@ -12,13 +13,13 @@ import { VariableService } from '../../services/variable.service';
 export class AddAssetComponent implements OnInit {
 
   serial_number: string;
-  category: string = this.vs.AssetCategories[0];
-  status: string = this.vs.AssetStatuses[0];
+  category: AssetCategory = this.ss.asset_categories[0];
+  status: string = this.ss.asset_statuses[0];
 
   constructor(
     private assets: AssetService,
     private us: UtilitiesService,
-    private vs: VariableService
+    private ss: SettingsService
   ) { }
 
   ngOnInit() {
@@ -28,7 +29,7 @@ export class AddAssetComponent implements OnInit {
     let asset = new Asset(
       undefined,
       this.serial_number,
-      this.category,
+      this.category.value,
       this.status
     );
     this.assets.addAsset(asset);

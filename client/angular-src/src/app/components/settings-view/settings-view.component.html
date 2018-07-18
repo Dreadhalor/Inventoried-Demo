@@ -1,0 +1,43 @@
+<div class="full-height px-5 pt-3">
+  <h1>Settings</h1>
+  <div class="card">
+    <div class="card-header">
+      <h4>Item Categories</h4>
+    </div>
+    <div class="card-body p-1">
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let category of ss.asset_categories"
+          class="list-group-item">
+          {{category.value}}
+        </li>
+        <li class="list-group-item d-flex flex-row flex-nowrap align-items-center">
+          <button type="button"
+            class="btn btn-link py-0 pl-0 pr-2"
+            (click)="addingCategoryButtonClicked()"
+            [hidden]="adding_category">
+            <i class="fas fa-plus-circle"></i>
+          </button>
+          <button type="button"
+            class="btn btn-link cancel-add-btn py-0 pl-0 pr-2"
+            (click)="cancelAddingCategoryButtonClicked()"
+            [hidden]="!adding_category">
+            <i class="fas fa-times-circle"></i>
+          </button>
+          <input #category
+            type="text"
+            class="form-control form-control-sm py-0"
+            placeholder="Category name"
+            [(ngModel)]="category_to_add"
+            name="new_category_textfield"
+            [hidden]="!adding_category">
+          <button type="button"
+            class="btn btn-link py-0 pl-2 pr-0"
+            [hidden]="!adding_category"
+            (click)="addCategoryConfirmButtonClicked()">
+            <i class="fas fa-check"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

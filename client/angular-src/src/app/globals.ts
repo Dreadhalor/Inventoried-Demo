@@ -19,9 +19,9 @@ export class Globals {
     return `${this.protocol}://${this.host}/`;
   }
 
-  private static _server_vars_route = 'server_vars';
-  static get server_vars_route(){
-    return this._server_vars_route;
+  private static _settings_route = 'settings/get_settings';
+  static get settings_route(){
+    return this._settings_route;
   }
 
 }

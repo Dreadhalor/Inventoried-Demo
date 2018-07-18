@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Asset } from './asset';
+import { Asset } from '../classes/asset';
 import { UtilitiesService } from './utilities.service';
 import { HttpClient } from '@angular/common/http';
 import { Globals } from '../globals';
-import { VariableService } from './variable.service';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AssetService {
 
   constructor(
     private us: UtilitiesService,
-    private vs: VariableService,
+    private ss: SettingsService,
     private http: HttpClient
   ) {
     this.pullAssets();
@@ -28,7 +28,7 @@ export class AssetService {
       status: asset.status
     };
     this.http.post(
-      Globals.request_prefix + 'assets/add-asset',
+      Globals.request_prefix + 'assets/add_asset',
       params
     ).subscribe(
       res => {
@@ -40,7 +40,7 @@ export class AssetService {
 
   pullAssets(){
     this.http.get(
-      Globals.request_prefix + 'assets/pull-assets',
+      Globals.request_prefix + 'assets/pull_assets',
     ).subscribe(
       res => {
         let any_res = res as any;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Globals } from './globals';
-import { VariableService } from './services/variable.service';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,6 @@ export class AppComponent {
   title = Globals.title;
 
   constructor(
-    private vs: VariableService
+    private ss: SettingsService
   ){}
 }

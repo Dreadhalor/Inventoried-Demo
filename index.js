@@ -26,8 +26,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //initialize routes
-const server_vars = require('./routes/server_vars');
-app.use('/server_vars', server_vars);
+const settings = require('./routes/settings');
+app.use('/settings', settings);
 const assets = require('./routes/assets');
 app.use('/assets', assets);
 
