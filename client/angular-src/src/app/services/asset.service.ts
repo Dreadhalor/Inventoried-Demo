@@ -24,14 +24,32 @@ export class AssetService {
     let params = {
       uuid: asset.uuid,
       serial_number: asset.serial_number,
-      category: asset.category,
-      status: asset.status
+      category_uuid: asset.category_uuid,
+      status_uuid: asset.status_uuid
     };
     this.http.post(
       Globals.request_prefix + 'assets/add_asset',
       params
     ).subscribe(
       res => {
+      },
+      err => {
+        console.log(err);
+    })
+  }
+  saveAsset(asset: Asset){
+    let params = {
+      uuid: asset.uuid,
+      serial_number: asset.serial_number,
+      category_uuid: asset.category_uuid,
+      status_uuid: asset.status_uuid
+    };
+    this.http.post(
+      Globals.request_prefix + 'assets/edit_asset',
+      params
+    ).subscribe(
+      res => {
+        this.pullAssets();
       },
       err => {
         console.log(err);

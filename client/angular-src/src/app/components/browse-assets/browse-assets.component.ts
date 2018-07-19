@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetService } from '../../services/asset.service';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'browse-assets',
@@ -9,7 +10,8 @@ import { AssetService } from '../../services/asset.service';
 export class BrowseAssetsComponent implements OnInit {
 
   constructor(
-    private assets: AssetService
+    private assets: AssetService,
+    private ss: SettingsService
   ) { }
 
   ngOnInit() {

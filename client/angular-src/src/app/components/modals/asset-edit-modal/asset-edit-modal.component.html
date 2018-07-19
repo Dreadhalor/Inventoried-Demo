@@ -28,11 +28,11 @@
           </label>
           <select id="category_select"
             class="mx-2"
-            [(ngModel)]="values.category"
+            [(ngModel)]="values.category_uuid"
             name="category_select">
             <option *ngFor="let category of ss.asset_categories"
-              [ngValue]="category">
-              {{category}}
+              [ngValue]="category.uuid">
+              {{category.value}}
             </option>
           </select>
         </div>
@@ -42,11 +42,11 @@
           </label>
           <select id="status_select"
             class="mx-2"
-            [(ngModel)]="values.status"
+            [(ngModel)]="values.status_uuid"
             name="status_select">
             <option *ngFor="let status of ss.asset_statuses"
-              [ngValue]="status">
-              {{status}}
+              [ngValue]="status.uuid">
+              {{status.value}}
             </option>
           </select>
         </div>

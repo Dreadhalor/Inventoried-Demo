@@ -18,6 +18,7 @@ import { UtilitiesService } from './services/utilities.service';
 import { AssetEditModalComponent } from './components/modals/asset-edit-modal/asset-edit-modal.component';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 import { SettingsViewComponent } from './components/settings-view/settings-view.component';
+import { SettingsCardComponent } from './components/settings-view/settings-card/settings-card.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainMenuComponent },
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     BrowseAssetsComponent,
     AssetEditModalComponent,
-    SettingsViewComponent
+    SettingsViewComponent,
+    SettingsCardComponent
   ],
   imports: [
     BrowserModule,

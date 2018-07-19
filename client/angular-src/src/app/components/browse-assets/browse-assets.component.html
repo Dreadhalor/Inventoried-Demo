@@ -18,10 +18,10 @@
           {{asset.serial_number}}
         </td>
         <td>
-          {{asset.category}}
+          {{ss.getAssetCategory(asset.category_uuid).value}}
         </td>
         <td>
-          {{asset.status}}
+          {{ss.getAssetStatus(asset.status_uuid).value}}
         </td>
       </tr>
     </tbody>

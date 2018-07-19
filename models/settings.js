@@ -14,5 +14,5 @@ const SettingsSchema = mongoose.Schema({
 const Settings = module.exports = mongoose.model('Settings', SettingsSchema);
 
 module.exports.getSettings = (callback) => {
-  return Settings.find(callback)[0];
+  Settings.findOne(callback);
 }

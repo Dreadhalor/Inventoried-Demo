@@ -24,9 +24,9 @@
         class="mx-2"
         [(ngModel)]="category"
         name="category_select">
-        <option *ngFor="let category of vs.AssetCategories"
-          [ngValue]="category">
-          {{category}}
+        <option *ngFor="let category of ss.asset_categories"
+          [ngValue]="category.uuid">
+          {{category.value}}
         </option>
       </select>
     </div>
@@ -38,9 +38,9 @@
         class="mx-2"
         [(ngModel)]="status"
         name="status_select">
-        <option *ngFor="let status of vs.AssetStatuses"
-          [ngValue]="status">
-          {{status}}
+        <option *ngFor="let status of ss.asset_statuses"
+          [ngValue]="status.uuid">
+          {{status.value}}
         </option>
       </select>
     </div>

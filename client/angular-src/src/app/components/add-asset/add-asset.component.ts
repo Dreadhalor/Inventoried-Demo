@@ -3,7 +3,7 @@ import { AssetService } from '../../services/asset.service';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Asset } from '../../classes/asset';
 import { SettingsService } from '../../services/settings.service';
-import { AssetCategory } from '../../classes/asset-category';
+import { SettingsEntry } from '../../classes/settings-entry';
 
 @Component({
   selector: 'add-asset',
@@ -13,8 +13,8 @@ import { AssetCategory } from '../../classes/asset-category';
 export class AddAssetComponent implements OnInit {
 
   serial_number: string;
-  category: AssetCategory = this.ss.asset_categories[0];
-  status: string = this.ss.asset_statuses[0];
+  category: string = this.ss.asset_categories[0].uuid;
+  status: string = this.ss.asset_statuses[0].uuid;
 
   constructor(
     private assets: AssetService,
@@ -29,7 +29,7 @@ export class AddAssetComponent implements OnInit {
     let asset = new Asset(
       undefined,
       this.serial_number,
-      this.category.value,
+      this.category,
       this.status
     );
     this.assets.addAsset(asset);
