@@ -42,6 +42,11 @@ html, body {
   @extend .flex-nowrap;
   @extend .align-items-center;
 }
+.d-flex-column {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .flex-nowrap;
+}
 .flex-1 {
   flex: 1;
 }

@@ -1,0 +1,29 @@
+<div class="px-5 pb-5 pt-4 y-scroll">
+  <h1 class="tight">Login</h1>
+  <form #form="ngForm"
+    class="mt-4"
+    (ngSubmit)="submitAttempt(form)">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text"
+        id="email"
+        class="form-control"
+        placeholder="Email"
+        [(ngModel)]="email"
+        name="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password"
+        id="password"
+        class="form-control"
+        placeholder="Password"
+        [(ngModel)]="password"
+        name="password">
+    </div>
+    <button type="submit"
+      class="btn btn-primary mt-3">
+      Login
+    </button>
+  </form>
+</div>

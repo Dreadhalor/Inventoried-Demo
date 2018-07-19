@@ -16,15 +16,18 @@ import { BrowseAssetsComponent } from './components/browse-assets/browse-assets.
 import { AssetService } from './services/asset.service';
 import { UtilitiesService } from './services/utilities.service';
 import { AssetEditModalComponent } from './components/modals/asset-edit-modal/asset-edit-modal.component';
-import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 import { SettingsViewComponent } from './components/settings-view/settings-view.component';
 import { SettingsCardComponent } from './components/settings-view/settings-card/settings-card.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainMenuComponent },
   { path: 'add-asset', component: AddAssetComponent },
   { path: 'settings', component: SettingsViewComponent },
-  { path: 'browse-assets', component: BrowseAssetsComponent }
+  { path: 'browse-assets', component: BrowseAssetsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({
@@ -39,7 +42,9 @@ const appRoutes: Routes = [
     BrowseAssetsComponent,
     AssetEditModalComponent,
     SettingsViewComponent,
-    SettingsCardComponent
+    SettingsCardComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

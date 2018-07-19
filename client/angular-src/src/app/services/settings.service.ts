@@ -22,8 +22,8 @@ export class SettingsService {
       if (res.success){
         this.asset_categories = res.result.asset_categories;
         this.asset_statuses = res.result.asset_statuses;
-        this.loaded = true;
       }
+      this.loaded = true;
     })
   }
 

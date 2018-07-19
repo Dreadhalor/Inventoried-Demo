@@ -30,6 +30,8 @@ const settings = require('./routes/settings');
 app.use('/settings', settings);
 const assets = require('./routes/assets');
 app.use('/assets', assets);
+const users = require('./routes/users');
+app.use('/users', users);
 
 app.get('/', (req, res, next) => {
   res.send('hello world');

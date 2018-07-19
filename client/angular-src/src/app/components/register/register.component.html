@@ -1,0 +1,64 @@
+<div class="px-5 pb-5 pt-4 y-scroll">
+  <h1 class="tight">Register</h1>
+  <form #register="ngForm"
+    class="mt-4"
+    (ngSubmit)="submitAttempt(register)"
+    (input)="resetErrors()">
+    <div *ngIf="error_message"
+      class="alert alert-danger">
+      {{error_message}}
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email"
+        id="email"
+        class="form-control"
+        placeholder="Email"
+        [(ngModel)]="email"
+        name="email">
+    </div>
+    <div class="d-flex-row">
+      <div class="form-group mr-3 flex-1">
+        <label for="first_name">First name</label>
+        <input type="text"
+          id="first_name"
+          class="form-control"
+          placeholder="First name"
+          [(ngModel)]="first_name"
+          name="first_name">
+      </div>
+      <div class="form-group flex-1">
+        <label for="last_name">Last name</label>
+        <input type="text"
+          id="last_name"
+          class="form-control"
+          placeholder="Last name"
+          [(ngModel)]="last_name"
+          name="last_name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password"
+        id="password"
+        class="form-control"
+        placeholder="Password"
+        [(ngModel)]="password"
+        name="password">
+    </div>
+    <div class="form-group">
+      <label for="password_check">Re-Type password</label>
+      <input type="password"
+        id="password_check"
+        class="form-control"
+        placeholder="Password"
+        [(ngModel)]="password_check"
+        name="password_check">
+    </div>
+    <button type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="!register.valid">
+      Register
+    </button>
+  </form>
+</div>

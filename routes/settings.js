@@ -2,23 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Settings = require('../models/settings');
 
-const asset_categories = [
-  '-',
-  'Desktop',
-  'Laptop',
-  'Monitor',
-  'Printer',
-  'Consumable'
-];
-const asset_statuses = [
-  '-',
-  'New',
-  'Assigned',
-  'Returned',
-  'Retired'
-];
-
-
 router.get('/get_settings', (req, res) => {
   Settings.getSettings((err,result) => {
     if (err) {
