@@ -11,10 +11,11 @@ import { AssetService } from '../../services/asset.service';
 export class DashboardComponent implements OnInit {
 
   constructor(
-    private us: UserService,
+    private _us: UserService,
     private ss: SettingsService,
     private assets: AssetService
   ) { }
+  get us(){return this._us;}
 
   ngOnInit() {
     this.us.pullUser();

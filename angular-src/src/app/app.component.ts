@@ -12,6 +12,7 @@ export class AppComponent {
   title = Globals.title;
 
   constructor(
-    private ss: SettingsService
+    private _ss: SettingsService
   ){}
+  get ss(){return this._ss;}
 }

@@ -33,9 +33,11 @@ app.use('/assets', assets);
 const users = require('./routes/users');
 app.use('/users', users);
 
-app.get('/', (req, res, next) => {
-  res.send('hello world');
-})
+//set client file
+app.use(express.static(path.join(__dirname, '/client/angular-prod')));
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '/client/angular-prod/index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

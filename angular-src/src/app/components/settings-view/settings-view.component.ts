@@ -25,8 +25,9 @@ export class SettingsViewComponent implements OnInit {
   
 
   constructor(
-    private ss: SettingsService
+    private _ss: SettingsService
   ) { }
+  get ss(){return this._ss;}
 
   ngOnInit() {
   }

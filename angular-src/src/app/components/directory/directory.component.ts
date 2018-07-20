@@ -9,8 +9,9 @@ import { UserService } from '../../services/user.service';
 export class DirectoryComponent implements OnInit {
 
   constructor(
-    private us: UserService
+    private _us: UserService
   ) { }
+  get us(){return this._us;}
 
   ngOnInit() {
     this.us.pullUsers();

@@ -10,9 +10,10 @@ import { SettingsService } from '../../services/settings.service';
 export class BrowseAssetsComponent implements OnInit {
 
   constructor(
-    private assets: AssetService,
+    private _assets: AssetService,
     private ss: SettingsService
   ) { }
+  get assets(){return this._assets;}
 
   ngOnInit() {
     this.assets.pullAssets();
