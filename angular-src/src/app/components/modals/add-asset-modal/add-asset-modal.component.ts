@@ -13,8 +13,8 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AddAssetModalComponent implements OnInit {
 
   serial_number: string;
-  category: string = this.ss.asset_categories[0].uuid;
-  status: string = this.ss.asset_statuses[0].uuid;
+  category: string;
+  status: string;
 
   modal: NgbModalRef = null;
   options = {
@@ -35,12 +35,17 @@ export class AddAssetModalComponent implements OnInit {
   @ViewChild('content') content: ElementRef;
   
   ngOnInit() {
+    this.reset();
   }
 
   reset(){
     this.serial_number = '';
-    this.category = this.ss.asset_categories[0].uuid;
-    this.status = this.ss.asset_statuses[0].uuid;
+    if (this.ss.asset_categories.length > 0){
+      this.category = this.ss.asset_categories[0].uuid;
+    } else this.category = null;
+    if (this.ss.asset_statuses.length > 0){
+      this.status = this.ss.asset_statuses[0].uuid;
+    } else this.status = null;
   }
 
   open(asset){
