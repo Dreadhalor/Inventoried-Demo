@@ -32,6 +32,7 @@ export class AssetService {
       params
     ).subscribe(
       res => {
+        this.pullAssets();
       },
       err => {
         console.log(err);
@@ -70,6 +71,12 @@ export class AssetService {
         console.log(err);
       }
     )
+  }
+  getAsset(uuid){
+    for (let i = 0; i < this.assets.length; i++){
+      if (this.assets[i].uuid == uuid) return this.assets[i];
+    }
+    return null;
   }
 
 }

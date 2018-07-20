@@ -1,7 +1,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">
-        Edit Item: {{asset.serial_number}}
+        Asset: {{asset.serial_number}}
       </h4>
       <button type="button"
         class="close"
@@ -9,25 +9,35 @@
         <span>&times;</span>
       </button>
     </div>
-    <form (ngSubmit)="onSubmit()">
+    <form>
       <div class="modal-body">
-        <div class="form-group">
+        <div class="form-group d-flex-row align-items-baseline">
           <label for="serial_number_textfield">
-            Serial Number
+            Serial Number:
           </label>
+          <span *ngIf="default"
+            class="ml-2">
+            {{asset.serial_number}}
+          </span>
           <input id="serial_number_textfield"
+            [style.visibility]="default ? 'hidden' : 'visible'"
             type="text"
-            class="form-control"
+            class="form-control flex-1 p-0 ml-2"
             placeholder="Serial Number"
             [(ngModel)]="values.serial_number"
             name="serial_number_textfield">
         </div>
         <div class="form-group">
           <label for="category_select">
-            Category
+            Category:
           </label>
+          <span *ngIf="default"
+            class="ml-2">
+            {{ss.getAssetCategory(asset.category_uuid).value}}
+          </span>
           <select id="category_select"
-            class="mx-2"
+            [style.visibility]="default ? 'hidden' : 'visible'"
+            class="ml-2"
             [(ngModel)]="values.category_uuid"
             name="category_select">
             <option *ngFor="let category of ss.asset_categories"
@@ -38,10 +48,15 @@
         </div>
         <div class="form-group">
           <label for="status_select">
-            Status
+            Status:
           </label>
+          <span *ngIf="default"
+            class="ml-2">
+            {{ss.getAssetStatus(asset.status_uuid).value}}
+          </span>
           <select id="status_select"
-            class="mx-2"
+            [style.visibility]="default ? 'hidden' : 'visible'"
+            class="ml-2"
             [(ngModel)]="values.status_uuid"
             name="status_select">
             <option *ngFor="let status of ss.asset_statuses"
@@ -52,9 +67,34 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit"
-          class="btn btn-outline-dark">
+        <button type="button"
+          class="btn btn-outline-dark mr-auto"
+          (click)="d()">
+          Close
+        </button>
+        <button *ngIf="editing"
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="cancelButtonPressed()">
+          Cancel
+        </button>
+        <button *ngIf="editing"
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="saveButtonPressed()">
           Save
+        </button>
+        <button *ngIf="default"
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="editButtonPressed()">
+          Edit
+        </button>
+        <button *ngIf="default"
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="checkoutButtonPressed()">
+          Check out
         </button>
       </div>
     </form>

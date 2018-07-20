@@ -1,0 +1,93 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      Checkout
+    </h4>
+    <button type="button"
+      class="close"
+      (click)="d('Cross click')">
+      <span>&times;</span>
+    </button>
+  </div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div *ngIf="error_message"
+        class="alert alert-danger">
+        {{error_message}}
+      </div>
+      <div class="d-flex-row">
+        <select id="asset_select"
+          class="mr-2 flex-1"
+          [(ngModel)]="asset_uuid"
+          name="asset_uuid">
+          <option *ngFor="let asset of assets.assets"
+            [ngValue]="asset.uuid">
+            {{ss.getAssetCategory(asset.category_uuid).value}} {{asset.serial_number}}
+          </option>
+        </select>
+        to
+        <select id="user_select"
+          class="ml-2 flex-1"
+          [(ngModel)]="user_uuid"
+          name="user_uuid">
+          <option *ngFor="let user of us.users"
+            [ngValue]="user.uuid">
+            {{user.first_name}} {{user.last_name}}
+          </option>
+        </select>
+      </div>
+      <div class="d-flex-row">
+        <div class="flex-1 text-center mr-3">
+          <small *ngIf="asset_uuid">
+            Serial number: {{assets.getAsset(asset_uuid).serial_number}}<br>
+            Category: {{ss.getAssetCategory(assets.getAsset(asset_uuid).category_uuid).value}}<br>
+            Status: {{ss.getAssetStatus(assets.getAsset(asset_uuid).status_uuid).value}}
+          </small>
+        </div>
+        <div class="flex-1 text-center ml-3">
+          <small *ngIf="user_uuid">
+            Name: {{us.getUser(user_uuid).first_name}} {{us.getUser(user_uuid).last_name}}<br>
+            Email: {{us.getUser(user_uuid).email}}
+          </small>
+        </div>
+      </div>
+      <div class="form-group d-flex-row align-items-baseline mt-2">
+        <label for="due_date">Until:</label>
+        <div class="input-group flex-1 ml-2">
+          <input id="due_date"
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            readonly
+            name="dp"
+            ngbDatepicker
+            (dateSelect)="dateSelected($event)"
+            #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button type="button"
+              class="btn btn-outline-secondary"
+              (click)="dp.toggle()">
+              <i class="far fa-calendar-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="duration" class="d-flex-row justify-content-center">
+        <strong>
+          Duration: {{duration}} day(s)
+        </strong>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button"
+        class="btn btn-outline-dark mr-auto"
+        (click)="d()">
+        Close
+      </button>
+      <button type="submit"
+        class="btn btn-outline-dark"
+        [disabled]="!(asset_uuid && user_uuid && duration)">
+        Check out
+      </button>
+    </div>
+  </form>
+</ng-template>

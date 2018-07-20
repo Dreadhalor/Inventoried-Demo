@@ -15,6 +15,11 @@ html, body {
   min-height: 100%;
   overflow: hidden;
 }
+.page-title {
+  @extend .p-0;
+  @extend .mx-0;
+  @extend .my-4;
+}
 .tight {
   padding: 0px!important;
   margin: 0px!important;

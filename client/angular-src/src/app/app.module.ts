@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { AddAssetComponent } from './components/add-asset/add-asset.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { CheckinAssetComponent } from './components/checkin-asset/checkin-asset.component';
 import { CheckoutAssetComponent } from './components/checkout-asset/checkout-asset.component';
@@ -20,12 +19,17 @@ import { SettingsViewComponent } from './components/settings-view/settings-view.
 import { SettingsCardComponent } from './components/settings-view/settings-card/settings-card.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AddAssetModalComponent } from './components/modals/add-asset-modal/add-asset-modal.component';
+import { DirectoryComponent } from './components/directory/directory.component';
+import { CheckoutModalComponent } from './components/modals/checkout-modal/checkout-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainMenuComponent },
-  { path: 'add-asset', component: AddAssetComponent },
   { path: 'settings', component: SettingsViewComponent },
   { path: 'browse-assets', component: BrowseAssetsComponent },
+  { path: 'directory', component: DirectoryComponent },
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];
@@ -34,7 +38,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     MainMenuComponent,
-    AddAssetComponent,
     CheckoutAssetComponent,
     CheckinAssetComponent,
     RetireAssetComponent,
@@ -44,7 +47,11 @@ const appRoutes: Routes = [
     SettingsViewComponent,
     SettingsCardComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    AddAssetModalComponent,
+    DirectoryComponent,
+    CheckoutModalComponent
   ],
   imports: [
     BrowserModule,

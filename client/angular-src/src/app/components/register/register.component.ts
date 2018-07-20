@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  email: string = '';
-  first_name: string = '';
-  last_name: string = '';
-  password: string = '';
-  password_check: string = '';
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+  password_check: string;
   error_message = null;
 
   constructor(
@@ -29,30 +29,56 @@ export class RegisterComponent implements OnInit {
     this.error_message = null;
   }
 
-  submitAttempt(form: NgForm){
-    if (this.email != ''){
-      if (this.first_name != ''){
-        if (this.last_name != ''){
-          if (this.password != ''){
-            if (this.password == this.password_check){
-              let new_user_params = {
-                email: this.email,
-                first_name: this.first_name,
-                last_name: this.last_name,
-                password: this.password
+  isFormValid(): any {
+    if (this.email){
+      if (this.first_name){
+        if (this.last_name){
+          if (this.password){
+            if (this.password_check == this.password){
+              return {
+                valid: true
               };
-              this.us.registerUser(new_user_params).then((registered) => {
-                if (registered){
-                  form.reset();
-                  this.resetErrors();
-                  this.router.navigate(['/login']);
-                }
-              });
-            } else this.error_message = "Both password fields must match.";
-          } else this.error_message = "Password is required.";
-        } else this.error_message = "Last name is required.";
-      } else this.error_message = "First name is required.";
-    } else this.error_message = "Email is required.";
+            } else return {
+              valid: false,
+              error: 'Both password fields must match.'
+            }
+          } else return {
+            valid: false,
+            error: 'Password is required.'
+          }
+        } else return {
+          valid: false,
+          error: 'Last name is required.'
+        }
+      } else return {
+        valid: false,
+        error: 'First name is required.'
+      }
+    } else return {
+      valid: false,
+      error: 'Email is required.'
+    }
+  }
+
+  submitAttempt(form: NgForm){
+    let valid = this.isFormValid();
+    if (valid.valid){
+      let new_user_params = {
+        email: this.email,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        password: this.password
+      };
+      this.us.registerUser(new_user_params).then((registered) => {
+        if (registered){
+          form.reset();
+          this.resetErrors();
+          this.router.navigate(['/login']);
+        }
+      });
+    } else if (valid.error){
+      this.error_message = valid.error;
+    }
   }
 
 }

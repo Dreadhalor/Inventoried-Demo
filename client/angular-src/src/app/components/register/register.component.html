@@ -1,5 +1,5 @@
-<div class="px-5 pb-5 pt-4 y-scroll">
-  <h1 class="tight">Register</h1>
+<div class="px-5 pb-5 y-scroll">
+  <h1 class="page-title">Register</h1>
   <form #register="ngForm"
     class="mt-4"
     (ngSubmit)="submitAttempt(register)"
@@ -56,8 +56,7 @@
         name="password_check">
     </div>
     <button type="submit"
-      class="btn btn-primary mt-3"
-      [disabled]="!register.valid">
+      class="btn btn-primary mt-3">
       Register
     </button>
   </form>

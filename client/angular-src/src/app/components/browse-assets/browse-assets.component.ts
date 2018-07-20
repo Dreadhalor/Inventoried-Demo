@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { AssetService } from '../../services/asset.service';
 import { SettingsService } from '../../services/settings.service';
 
