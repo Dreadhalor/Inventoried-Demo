@@ -11,7 +11,19 @@ export class SettingsService {
   loaded = false;
 
   asset_categories: SettingsEntry[] = [];
-  asset_statuses: SettingsEntry[] = [];
+  _asset_statuses: any[] = [];
+  get asset_statuses(){ return this._asset_statuses; }
+  set asset_statuses(val){
+    this._asset_statuses = val;
+    this._asset_statuses.unshift({
+      uuid: '1',
+      value: 'Checked Out'
+    });
+    this._asset_statuses.unshift({
+      uuid: '0',
+      value: 'Available'
+    });
+  }
 
   constructor(
     private http: HttpClient
@@ -123,6 +135,7 @@ export class SettingsService {
   }
   setAssetStatuses(statuses_arg: SettingsEntry[]){
     let statuses = Globals.deepCopy(statuses_arg);
+    statuses.splice(0,2);
     let body = {
       statuses: []
     };
@@ -137,6 +150,20 @@ export class SettingsService {
       }
       return false;
     })
+  }
+  getCbeckedOutUUID(){
+    let status = this.asset_statuses.find(
+      match => match.value.toLowerCase() == 'checked out'
+    );
+    if (status) return status.uuid;
+    return null;
+  }
+  getAvailableUUID(){
+    let status = this.asset_statuses.find(
+      match => match.value.toLowerCase() == 'available'
+    );
+    if (status) return status.uuid;
+    return null;
   }
   getAssetStatus(uuid){
     for (let i = 0; i < this.asset_statuses.length; i++){

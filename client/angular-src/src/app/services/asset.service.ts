@@ -23,7 +23,7 @@ export class AssetService {
   addAsset(asset: Asset){
     let params = {
       uuid: asset.uuid,
-      serial_number: asset.serial_number,
+      serial_number: asset.serial_number.toUpperCase(),
       category_uuid: asset.category_uuid,
       status_uuid: asset.status_uuid
     };
@@ -31,8 +31,10 @@ export class AssetService {
       Globals.request_prefix + 'assets/add_asset',
       params
     ).subscribe(
-      res => {
-        this.pullAssets();
+      (res: any) => {
+        if (res.success){
+          this.pullAssets();
+        }
       },
       err => {
         console.log(err);
@@ -49,22 +51,47 @@ export class AssetService {
       Globals.request_prefix + 'assets/edit_asset',
       params
     ).subscribe(
-      res => {
-        this.pullAssets();
+      (res: any) => {
+        if (res.success){
+          this.pullAssets();
+        }
       },
       err => {
         console.log(err);
     })
   }
+  checkin(uuid){
+    let params = {
+      uuid: uuid
+    };
+    this.http.post(
+      Globals.request_prefix + 'assets/checkin',
+      params
+    ).subscribe(
+      (res: any) => {
+        if (res.success){
+          let asset: Asset = this.getAsset(uuid);
+          let available = this.ss.getAvailableUUID();
+          if (available){
+            asset.status_uuid = available;
+            this.saveAsset(asset);
+          }
+          this.pullAssets();
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
 
   pullAssets(){
     this.http.get(
-      Globals.request_prefix + 'assets/pull_assets',
+      Globals.request_prefix + 'assets/pull_assets'
     ).subscribe(
-      res => {
-        let any_res = res as any;
-        if (any_res.success){
-          this.assets = any_res.result;
+      (res: any) => {
+        if (res.success){
+          this.assets = res.result;
         }
       },
       err => {

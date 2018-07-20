@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { UtilitiesService } from './utilities.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Globals } from '../globals';
+import { AssetService } from './asset.service';
+import { Asset } from '../classes/asset';
+import { SettingsService } from './settings.service';
+import { AssetStatus } from '../classes/asset-status';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +13,12 @@ import { Globals } from '../globals';
 export class UserService {
 
   public users: any[] = [];
-  public user_assets: any[] = [];
+  public user;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private assets: AssetService,
+    private ss: SettingsService
   ) { 
     this.pullUsers();
    }
@@ -57,15 +63,16 @@ export class UserService {
       ).subscribe((res: any) => {
         if (res.success){
           localStorage.setItem('token',res.result);
-          this.pullUserInformation();
-          resolve(res.result);
-        }
-        resolve(null);
+          this.pullUser().then(() => {
+            resolve(res.result);
+          })
+        } else resolve(null);
       })
     });
   }
   logout(){
     localStorage.removeItem('token');
+    return this.pullUser();
   }
   getUser(uuid){
     for (let i = 0; i < this.users.length; i++){
@@ -87,6 +94,13 @@ export class UserService {
         user_params
       ).subscribe((res: any) => {
         if (res.success){
+          let asset: Asset = this.assets.getAsset(user_params.asset_uuid);
+          let checked_out = this.ss.getCbeckedOutUUID();
+          if (checked_out){
+            asset.status_uuid = checked_out;
+            this.assets.saveAsset(asset);
+            this.pullUsers();
+          }
           resolve(res.result);
         }
         resolve(null);
@@ -94,28 +108,28 @@ export class UserService {
     });
   }
 
-  pullUserInformation(){
-    this.pullAssignedAssets();
-  }
-
-  pullAssignedAssets(){
+  pullUser(){
     let token = localStorage.getItem('token');
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (token){
-        let headers = new HttpHeaders({
-          authorization: token
-        });
+        let headers = new HttpHeaders({authorization:token});
         this.http.get(
-          Globals.request_prefix + 'users/pull_assigned_assets',
-          { headers: headers }
+          Globals.request_prefix + 'users/get_user',
+          {headers: headers}
         ).subscribe((res: any) => {
           if (res.success){
-            this.user_assets = res.result;
-            resolve(res.result);
+            this.user = res.result;
+            resolve(this.user);
+          } else {
+            this.user = null;
+            resolve(this.user);
           }
-          resolve(null);
         })
-      } else resolve(null);
-    });
+      } else {
+        this.user = null;
+        resolve(this.user);
+      }
+    })
   }
+
 }

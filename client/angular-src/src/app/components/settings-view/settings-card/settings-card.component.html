@@ -34,13 +34,15 @@
       <ng-container *ngIf="editing_entries">
         <li *ngFor="let entry of placeholders"
           class="list-group-item center-aligned-row ">
-          <button type="button"
+          <button *ngIf="!isReadonly(entry)"
+            type="button"
             class="btn btn-link cancel-add-btn py-0 pl-0 pr-2"
             (click)="deleteEntryButtonClicked(entry.uuid)">
             <i class="fas fa-times-circle"></i>
           </button>
           <input type="text"
             class="form-control form-control-sm"
+            [readonly]="isReadonly(entry)"
             [placeholder]="getEntry(entry.uuid).value"
             [(ngModel)]="entry.value"
             name="new_entry_textfield">

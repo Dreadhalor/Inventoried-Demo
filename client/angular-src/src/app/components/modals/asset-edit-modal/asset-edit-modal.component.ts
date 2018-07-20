@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter }
 import { Asset } from '../../../classes/asset';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SettingsService } from '../../../services/settings.service';
-import { Globals } from '../../../globals';
 import { AssetService } from '../../../services/asset.service';
 
 @Component({
@@ -38,7 +37,7 @@ export class AssetEditModalComponent implements OnInit {
 
   @ViewChild('content') content: ElementRef;
 
-  @Output() open_checkout = new EventEmitter<string>();
+  @Output() open_checkout = new EventEmitter<any>();
 
   state: assetModalState = assetModalState.default;
 
@@ -103,7 +102,12 @@ export class AssetEditModalComponent implements OnInit {
     this.reset(false);
     this.modal.close();
     this.modal = null;
-    this.open_checkout.emit(this.asset.uuid);
+    this.open_checkout.emit({
+      asset_uuid: this.asset.uuid
+    });
+  }
+  checkinButtonPressed(){
+    this.assets.checkin(this.asset.uuid);
   }
 
   get default(){

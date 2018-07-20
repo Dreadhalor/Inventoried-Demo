@@ -111,6 +111,21 @@ router.get('/pull_all', (req, res) => {
   })
 });
 
+router.get('/get_user', (req, res) => {
+  let token = req.headers.authorization;
+  if (token){
+    User.decodeToken(token, (err, user) => {
+      if (err) throw err;
+      else if (user){
+        res.json({
+          success: true,
+          result: user
+        });
+      } else res.json({success:false});
+    })
+  } else res.json({success:false});
+})
+
 router.get('/pull_assigned_assets', (req, res) => {
   let token = req.headers.authorization;
   User.decodeToken(token,(err, user) => {

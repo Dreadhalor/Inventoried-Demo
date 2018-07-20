@@ -18,4 +18,8 @@ export class BrowseAssetsComponent implements OnInit {
     this.assets.pullAssets();
   }
 
+  stringify(thing){
+    return JSON.stringify(thing);
+  }
+
 }

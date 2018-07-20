@@ -25,6 +25,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  is_admin: {
+    type: Boolean,
+    default: false
+  },
   checked_out_assets: [{
     asset_uuid: {
       type: String,

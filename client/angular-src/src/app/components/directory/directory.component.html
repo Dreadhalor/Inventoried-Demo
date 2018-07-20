@@ -13,9 +13,13 @@
       <th scope="col">
         Email
       </th>
+      <th scope="col">
+        Assets Checked Out
+      </th>
     </thead>
     <tbody>
-      <tr *ngFor="let user of us.users">
+      <tr *ngFor="let user of us.users"
+        (click)="view_user.open(user)">
         <td>
           {{user.first_name}}
         </td>
@@ -25,7 +29,15 @@
         <td>
           {{user.email}}
         </td>
+        <td>
+          {{user.checked_out_assets.length}}
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<user-view-modal #view_user
+  (open_checkout)="checkout.open($event)">
+</user-view-modal>
+<checkout-modal #checkout></checkout-modal>

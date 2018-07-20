@@ -1,11 +1,47 @@
-<div class="px-5 pb-5 y-scroll">
-    <h1 class="page-title">Dashboard</h1>
-  <div class="mt-4">
+<div *ngIf="us.user; else pleaseLogIn"
+  class="px-5 pb-5 y-scroll">
+  <h1 class="page-title">
+    {{us.user.first_name}} {{us.user.last_name}}'s Dashboard
+  </h1>
+  <h4 class="mt-4 mb-3">
     Devices currently checked out:
-  </div>
-  <ul>
-    <li *ngFor="let asset of us.user_assets">
-      {{asset.asset_uuid}}
-    </li>
-  </ul>
+  </h4>
+  <table class="table table-striped border">
+    <thead>
+      <th scope="col">
+        Serial Number
+      </th>
+      <th scope="col">
+        Category
+      </th>
+      <th scope="col">
+        Checked Out
+      </th>
+      <th scope="col">
+        Due Back
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asset of us.user.checked_out_assets">
+        <td>
+          {{assets.getAsset(asset.asset_uuid).serial_number}}
+        </td>
+        <td>
+          {{ss.getAssetCategory(
+            assets.getAsset(asset.asset_uuid).category_uuid).value}}
+        </td>
+        <td>
+          {{asset.check_out_date}}
+        </td>
+        <td>
+          {{asset.due_date}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<ng-template #pleaseLogIn>
+  <h1 class="page-title">
+    Please log in to view your dashboard.
+  </h1>
+</ng-template>

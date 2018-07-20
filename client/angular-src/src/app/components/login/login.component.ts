@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '../../../../node_modules/@angular/forms';
+import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   error_message: string = null;
 
   constructor(
-    private us: UserService
+    private us: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit {
         if (token){
           this.error_message = null;
           form.reset();
+          this.router.navigate(['/dashboard']);
         } else this.error_message = 'Incorrect username or password.'
       })
     } else if (valid.error){

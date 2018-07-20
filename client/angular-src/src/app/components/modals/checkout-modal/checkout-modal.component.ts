@@ -41,7 +41,9 @@ export class CheckoutModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(asset_uuid,user_uuid){
+  open(event){
+    let asset_uuid = event.asset_uuid;
+    let user_uuid = event.user_uuid;
     if (asset_uuid) this.asset_uuid = asset_uuid;
     if (user_uuid) this.user_uuid = user_uuid;
     this.show(this.content);

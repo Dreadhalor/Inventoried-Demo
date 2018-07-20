@@ -22,6 +22,7 @@ export class SettingsCardComponent implements OnInit {
   }
   @Input() set entries(val){
     this._entries = val;
+    //console.log(val);
     this.resetPlaceholders();
   };
 
@@ -87,6 +88,10 @@ export class SettingsCardComponent implements OnInit {
   resetAddEntry(){
     this.adding_entry = false;
     this.entry_to_add = '';
+  }
+
+  isReadonly(entry){
+    return entry.uuid == '0' || entry.uuid == '1';
   }
 
 }

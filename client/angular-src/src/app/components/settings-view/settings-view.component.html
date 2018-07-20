@@ -1,7 +1,5 @@
 <div class="px-5 pb-5 y-scroll">
-  
   <h1 class="page-title">Settings</h1>
-
   <div class="container-fluid px-0 mb-3 mt-4 d-flex-row align-items-start flex-1">
 
     <!-- Asset Categories -->
@@ -22,50 +20,5 @@
       (edits)="ss.setAssetStatuses($event)">
     </settings-card>
 
-
-    <!-- Asset Statuses -->
-    <!--div class="card flex-1 mx-2">
-      <div class="card-header">
-        <h4>Asset Statuses</h4>
-      </div>
-      <div class="card-body p-1">
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let status of ss.asset_statuses"
-            class="list-group-item">
-            {{status.value}}
-          <li class="list-group-item d-flex flex-row flex-nowrap align-items-center">
-            <button type="button"
-              class="btn btn-link py-0 pl-0 pr-2"
-              (click)="addingStatusButtonClicked()"
-              [hidden]="adding_status">
-              <i class="fas fa-plus-circle"></i>
-            </button>
-            <button type="button"
-              class="btn btn-link cancel-add-btn py-0 pl-0 pr-2"
-              (click)="cancelAddingStatusButtonClicked()"
-              [hidden]="!adding_status">
-              <i class="fas fa-times-circle"></i>
-            </button>
-            <input #status
-              type="text"
-              class="form-control form-control-sm py-0"
-              placeholder="Status name"
-              [(ngModel)]="status_to_add"
-              name="new_status_textfield"
-              [hidden]="!adding_status">
-            <button type="button"
-              class="btn btn-link py-0 pl-2 pr-0"
-              [hidden]="!adding_status"
-              (click)="addStatusConfirmButtonClicked()">
-              <i class="fas fa-check"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div-->
-
   </div>
-
- 
-
 </div>

@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { CheckinAssetComponent } from './components/checkin-asset/checkin-asset.component';
 import { CheckoutAssetComponent } from './components/checkout-asset/checkout-asset.component';
 import { RetireAssetComponent } from './components/retire-asset/retire-asset.component';
@@ -23,13 +22,16 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AddAssetModalComponent } from './components/modals/add-asset-modal/add-asset-modal.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { CheckoutModalComponent } from './components/modals/checkout-modal/checkout-modal.component';
+import { AuthGuardService } from './guards/auth-guard.service';
+import { UserViewModalComponent } from './components/modals/user-view-modal/user-view-modal.component';
+import { AdminGuardService } from './guards/admin-guard.service';
 
 const appRoutes: Routes = [
-  { path: '', component: MainMenuComponent },
-  { path: 'settings', component: SettingsViewComponent },
-  { path: 'browse-assets', component: BrowseAssetsComponent },
-  { path: 'directory', component: DirectoryComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'settings', component: SettingsViewComponent, canActivate: [AdminGuardService] },
+  { path: 'browse-assets', component: BrowseAssetsComponent, canActivate: [AdminGuardService] },
+  { path: 'directory', component: DirectoryComponent, canActivate: [AdminGuardService] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];
@@ -37,7 +39,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    MainMenuComponent,
     CheckoutAssetComponent,
     CheckinAssetComponent,
     RetireAssetComponent,
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     AddAssetModalComponent,
     DirectoryComponent,
-    CheckoutModalComponent
+    CheckoutModalComponent,
+    UserViewModalComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AssetService,
-    UtilitiesService
+    UtilitiesService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

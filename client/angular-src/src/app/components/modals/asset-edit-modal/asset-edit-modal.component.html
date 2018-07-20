@@ -90,12 +90,20 @@
           (click)="editButtonPressed()">
           Edit
         </button>
-        <button *ngIf="default"
-          type="button"
-          class="btn btn-outline-dark"
-          (click)="checkoutButtonPressed()">
-          Check out
-        </button>
+        <ng-container *ngIf="ss.getAvailableUUID() && ss.getCbeckedOutUUID()">
+          <button *ngIf="default && asset.status_uuid != ss.getCbeckedOutUUID()"
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="checkoutButtonPressed()">
+            Check out
+          </button>
+          <button *ngIf="default && asset.status_uuid == ss.getCbeckedOutUUID()"
+            type="button"
+            class="btn btn-outline-dark"
+            (click)="checkinButtonPressed()">
+            Check in
+          </button>
+        </ng-container>
       </div>
     </form>
   </ng-template>
