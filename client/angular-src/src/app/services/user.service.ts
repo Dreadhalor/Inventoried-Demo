@@ -72,7 +72,7 @@ export class UserService {
     let user_params = {
       user_uuid: params.user_uuid,
       asset_uuid: params.asset_uuid,
-      start_date: params.start_date,
+      check_out_date: params.check_out_date,
       due_date: params.due_date
     };
     return new Promise((resolve) => {
@@ -81,6 +81,7 @@ export class UserService {
         user_params
       ).subscribe((res: any) => {
         if (res.success){
+          console.log(res.result);
           resolve(res.result);
         }
         resolve(null);

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 const User = require('../models/user');
 const Asset = require('../models/asset');
 
@@ -32,6 +33,7 @@ router.post('/register', (req, res) => {
     })
   } else res.json({success: false});
 });
+
 router.post('/login', (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
@@ -55,20 +57,43 @@ router.post('/login', (req, res) => {
     })
   }
 });
+
 router.post('/checkout', (req, res) => {
   let user_uuid = req.body.user_uuid;
   let asset_uuid = req.body.asset_uuid;
-  let start_date = req.body.start_date;
+  let check_out_date = req.body.check_out_date;
   let due_date = req.body.due_date;
-  if (user_uuid && asset_uuid && start_date && due_date){
+  if (user_uuid && asset_uuid && check_out_date && due_date){
     let params = {
-      user_uuid: req.body.user_uuid,
       asset_uuid: req.body.asset_uuid,
-      start_date: req.body.start_date,
+      check_out_date: req.body.check_out_date,
       due_date: req.body.due_date
     };
-    console.log(params);
-  }
+    User.getUserByUUID(user_uuid, (err, user) => {
+      if (err) throw err;
+      else if (user){
+        Asset.getAssetByUUID(asset_uuid, (err2, asset) => {
+          if (err2) throw err2;
+          else if (asset){
+            let start = moment(check_out_date,'MMMM Do YYYY').isValid();
+            let due = moment(due_date,'MMMM Do YYYY').isValid();
+            if (start && due){
+              user.checked_out_assets.push(params);
+              user.save((err, saved) => {
+                if (err) throw err;
+                else if (saved){
+                  res.json({
+                    success: true,
+                    result: saved
+                  });
+                } else res.json({success:false});
+              })
+            } else res.json({success:false});
+          } else res.json({success:false});
+        })
+      } else res.json({success:false});
+    })
+  } else res.json({success:false});
 })
 
 router.get('/pull_all', (req, res) => {

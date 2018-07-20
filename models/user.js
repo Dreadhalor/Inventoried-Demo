@@ -22,7 +22,21 @@ const UserSchema = mongoose.Schema({
   password_hash: {
     type: String,
     required: true
-  }
+  },
+  checked_out_assets: [{
+    asset_uuid: {
+      type: String,
+      required: true
+    },
+    check_out_date: {
+      type: String,
+      required: false
+    },
+    due_date: {
+      type: String,
+      required: false
+    }
+  }]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

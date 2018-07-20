@@ -4,6 +4,8 @@ import { SettingsService } from '../../../services/settings.service';
 import { AssetService } from '../../../services/asset.service';
 import { UserService } from '../../../services/user.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'checkout-modal',
   templateUrl: './checkout-modal.component.html',
@@ -31,8 +33,8 @@ export class CheckoutModalComponent implements OnInit {
   
   asset_uuid: string;
   user_uuid: string;
-  start_date: any;
-  due_date: any;
+  check_out_date: moment.Moment;
+  due_date: moment.Moment;
   duration: number;
   error_message: string;
 
@@ -57,17 +59,19 @@ export class CheckoutModalComponent implements OnInit {
   }
 
   dateSelected(event){
-    let now = new Date()
-    let today = {
-      year: now.getFullYear(),
-      month: now.getMonth() + 1,
-      day: now.getDate()
-    };
-    this.start_date = new Date(today.year, today.month, today.day);
-    this.due_date = new Date(event.year, event.month, event.day);
-    let milliseconds = this.due_date.getTime() - this.start_date.getTime();
-    this.duration = milliseconds/(1000*60*60*24);
-    if (this.duration < 0){
+    let now = moment();
+    this.check_out_date = moment({
+      year: now.year(),
+      month: now.month(),
+      date: now.date()
+    });
+    this.due_date = moment({
+      year: event.year,
+      month: event.month - 1,
+      date: event.day
+    });
+    this.duration = this.due_date.diff(this.check_out_date,'days');
+    if (this.duration < 1){
       this.duration = null;
       this.error_message = "Due date must be in the future."
     } else this.error_message = null;
@@ -78,8 +82,8 @@ export class CheckoutModalComponent implements OnInit {
       let params = {
         user_uuid: this.user_uuid,
         asset_uuid: this.asset_uuid,
-        start_date: this.start_date,
-        due_date: this.due_date
+        check_out_date: this.check_out_date.format('MMMM Do YYYY'),
+        due_date: this.due_date.format('MMMM Do YYYY')
       };
       this.us.checkout(params);
       this.reset();
