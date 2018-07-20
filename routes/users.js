@@ -111,4 +111,17 @@ router.get('/pull_all', (req, res) => {
   })
 });
 
+router.get('/pull_assigned_assets', (req, res) => {
+  let token = req.headers.authorization;
+  User.decodeToken(token,(err, user) => {
+    if (err) throw err;
+    else if (user){
+      res.json({
+        success: true,
+        result: user.checked_out_assets
+      });
+    } else res.json({success:false});
+  });
+});
+
 module.exports = router;

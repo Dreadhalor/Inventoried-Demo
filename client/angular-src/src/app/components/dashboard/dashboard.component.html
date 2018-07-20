@@ -3,4 +3,9 @@
   <div class="mt-4">
     Devices currently checked out:
   </div>
+  <ul>
+    <li *ngFor="let asset of us.user_assets">
+      {{asset.asset_uuid}}
+    </li>
+  </ul>
 </div>

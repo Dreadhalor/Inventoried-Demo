@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UtilitiesService } from './utilities.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Globals } from '../globals';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Globals } from '../globals';
 export class UserService {
 
   public users: any[] = [];
+  public user_assets: any[] = [];
 
   constructor(
     private http: HttpClient
@@ -55,11 +56,16 @@ export class UserService {
         user_params
       ).subscribe((res: any) => {
         if (res.success){
+          localStorage.setItem('token',res.result);
+          this.pullUserInformation();
           resolve(res.result);
         }
         resolve(null);
       })
     });
+  }
+  logout(){
+    localStorage.removeItem('token');
   }
   getUser(uuid){
     for (let i = 0; i < this.users.length; i++){
@@ -81,11 +87,35 @@ export class UserService {
         user_params
       ).subscribe((res: any) => {
         if (res.success){
-          console.log(res.result);
           resolve(res.result);
         }
         resolve(null);
       })
+    });
+  }
+
+  pullUserInformation(){
+    this.pullAssignedAssets();
+  }
+
+  pullAssignedAssets(){
+    let token = localStorage.getItem('token');
+    return new Promise((resolve) => {
+      if (token){
+        let headers = new HttpHeaders({
+          authorization: token
+        });
+        this.http.get(
+          Globals.request_prefix + 'users/pull_assigned_assets',
+          { headers: headers }
+        ).subscribe((res: any) => {
+          if (res.success){
+            this.user_assets = res.result;
+            resolve(res.result);
+          }
+          resolve(null);
+        })
+      } else resolve(null);
     });
   }
 }

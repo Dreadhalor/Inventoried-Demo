@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         email: this.email,
         password: this.password
       };
-      this.us.login(credentials).then((token) => {
+      this.us.login(credentials).then((token: string) => {
         if (token){
           this.error_message = null;
           form.reset();

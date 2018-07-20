@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const secret = 'secret';
+
 const UserSchema = mongoose.Schema({
   uuid: {
     type: String,
@@ -80,7 +82,7 @@ module.exports.checkCredentials = (user_params, callback) => {
         bcrypt.compare(user_params.password, user.password_hash, (err, valid) => {
           if (err){ throw err; }
           else if (valid){
-            let token = jwt.sign({uuid:user.uuid},'secret');
+            let token = jwt.sign({uuid:user.uuid},secret);
             callback(null, token);
           }
           else return callback('Incorrect password', null);
@@ -89,6 +91,23 @@ module.exports.checkCredentials = (user_params, callback) => {
     })
   } else return callback('Invalid credentials format', null);
 };
+
+module.exports.decodeToken = (token,callback) => {
+  jwt.verify(token,secret,(err, decoded) => {
+    if (err) callback(err,null);
+    else if (decoded){
+      let user_uuid = decoded.uuid;
+      if (user_uuid){
+        User.getUserByUUID(user_uuid,(err2,user) => {
+          if (err) callback(err2,null);
+          else if (user){
+            callback(null,user);
+          } else callback(null,null);
+        })
+      } else callback(null,null);
+    } else callback(null,null);
+  });
+}
 
 module.exports.pullAllUsers = (callback) => {
   User.find(callback);
