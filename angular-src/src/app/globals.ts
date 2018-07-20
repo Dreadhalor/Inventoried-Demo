@@ -5,12 +5,12 @@ export class Globals {
     return this._title;
   }
 
-  private static _host = 'localhost:3000';
+  private static _host = 'inventoried.co';
   static get host(){
     return this._host;
   }
 
-  private static _protocol = 'http';
+  private static _protocol = 'https';
   static get protocol(){
     return this._protocol;
   }

@@ -6,7 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
-const port = 3000;
+const port = 5000;
 const app = express();
 
 mongoose.connect(
