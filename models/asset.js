@@ -5,9 +5,18 @@ const AssetSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  serial_number: String,
-  category_uuid: String,
-  status_uuid: String
+  serial_number: {
+    type: String,
+    default: ''
+  },
+  category_uuid: {
+    type: String,
+    default: ''
+  },
+  status_uuid: {
+    type: String,
+    default: ''
+  }
 });
 
 const Asset = module.exports = mongoose.model('Asset', AssetSchema);
